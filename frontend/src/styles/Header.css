@@ -6,6 +6,18 @@
   padding: 2rem 4rem;
   background-color: #242424;
   color: #fff;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-content.hidden {
+  display: none;
 }
 
 .logo a {
@@ -22,11 +34,13 @@
 .nav a {
   color: #fff;
   text-decoration: none;
+  padding: 0.5rem 1rem;
 }
 
 .icon-container {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 .header-icon {
@@ -34,14 +48,37 @@
   color: #fff;
 }
 
-.menu-toggle {
-  display: none;
-  font-size: 1.5rem;
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 0 1rem;
+  font-size: 1rem;
+  background-color: #242424;
   color: #fff;
-  cursor: pointer;
   border: none;
-  background: none;
   outline: none;
+  transition: width 0.4s ease, opacity 0.4s ease;
+}
+
+.clear-search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 1rem;
+  color: #fff;
+}
+
+.search-submit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 1rem;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -60,7 +97,12 @@
   }
 
   .nav.open {
+    display: flex;
     transform: translateX(0);
+  }
+
+  .nav a {
+    padding: 1rem 2rem;
   }
 
   .menu-toggle {

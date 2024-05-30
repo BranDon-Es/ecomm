@@ -1,0 +1,31 @@
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+}
+
+.product-card h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.product-card p {
+  color: #555;
+}
+
+.product-card .price {
+  font-size: 1.2rem;
+  color: var(--main-accent-color);
+}

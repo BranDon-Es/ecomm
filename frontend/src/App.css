@@ -1,0 +1,13 @@
+/* App Container Styles */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  margin: 0 auto; /* Centering content */
+}

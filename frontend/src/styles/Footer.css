@@ -1,0 +1,30 @@
+.footer-container {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 4rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.footer-content p {
+  margin: 0;
+}
+
+.social-media a {
+  color: #fff;
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-media a:hover {
+  color: teal;
+}

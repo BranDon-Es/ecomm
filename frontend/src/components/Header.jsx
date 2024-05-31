@@ -1,70 +1,52 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUser, FaShoppingCart, FaSearch, FaTimes } from 'react-icons/fa';
+import { FaUser, FaShoppingCart, FaSearch, FaBars, FaTimes } from 'react-icons/fa'; // Importing icons
 import '../styles/Header.css';
 
 const Header = () => {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const handleSearchToggle = () => {
-    setSearchOpen(!searchOpen);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
   };
 
-  const handleSearchSubmit = () => {
-    console.log('Search query:', searchQuery);
-    // Implement search functionality here
-  };
-
-  const handleClearSearch = () => {
-    setSearchQuery('');
-    setSearchOpen(false);
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Handle the search logic here
   };
 
   return (
     <header className="header-container">
-      <div className={`header-content ${searchOpen ? 'hidden' : ''}`}>
-        <div className="logo">
-          <Link to="/">Zero to One</Link>
-        </div>
-        <nav className="nav">
-          <Link to="/">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
-        </nav>
-        <div className="icon-container">
-          <Link to="/search">
-            <FaSearch className="header-icon" onClick={handleSearchToggle} />
-          </Link>
-          <Link to="/account">
-            <FaUser className="header-icon" />
-          </Link>
-          <Link to="/cart">
-            <FaShoppingCart className="header-icon" />
-          </Link>
-        </div>
+      <div className="logo">
+        <Link to="/">Zero to One</Link>
       </div>
-      {searchOpen && (
-        <div className="search-container">
-          <button className="clear-search" onClick={handleClearSearch}>
-            <FaTimes className="header-icon" />
-          </button>
-          <input
-            type="text"
-            className="search-input"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder="Search..."
-          />
-          <button className="search-submit" onClick={handleSearchSubmit}>
-            <FaSearch className="header-icon" />
-          </button>
-        </div>
+      <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
+        <Link to="/">Home</Link>
+        <Link to="/products">Products</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
+      </nav>
+      <div className="icon-container">
+        <FaSearch className="header-icon" onClick={toggleSearch} />
+        <Link to="/account">
+          <FaUser className="header-icon" />
+        </Link>
+        <Link to="/cart">
+          <FaShoppingCart className="header-icon" />
+        </Link>
+        <FaBars className="header-icon menu-toggle" onClick={toggleMenu} />
+      </div>
+      {isSearchOpen && (
+        <form className="search-form" onSubmit={handleSearchSubmit}>
+          <FaSearch className="header-icon search-submit-icon" onClick={handleSearchSubmit} />
+          <input type="text" placeholder="Search..." />
+          <FaTimes className="header-icon close-search" onClick={toggleSearch} />
+        </form>
       )}
     </header>
   );

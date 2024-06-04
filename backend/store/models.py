@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -7,11 +8,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Brand(models.Model):
     name = models.CharField(max_length=255, default="Unknown brand")
 
     def __str__(self):
         return self.name
+
 
 class Specification(models.Model):
     name = models.CharField(max_length=255)
@@ -19,6 +22,7 @@ class Specification(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     CONDITION_CHOICES = [
@@ -42,6 +46,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_images/')
@@ -50,6 +55,7 @@ class ProductImage(models.Model):
     def __str__(self):
         return f"{self.product.name} Image"
 
+
 class ProductSpecification(models.Model):
     product = models.ForeignKey(Product, related_name='product_specifications', on_delete=models.CASCADE)
     specification = models.ForeignKey(Specification, related_name='product_specifications', on_delete=models.CASCADE, null=True, blank=True)
@@ -57,6 +63,7 @@ class ProductSpecification(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - {self.specification.name}: {self.value}"
+
 
 class Review(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)

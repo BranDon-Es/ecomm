@@ -3,19 +3,21 @@ from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 
 
-class CategoryList(generics.ListCreateAPIView):
+class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
 
-
-class ProductList(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
+class ProductList(generics.ListAPIView):
     serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        category = self.request.query_params.get('category', None)
+        if category is not None:
+            queryset = queryset.filter(category__id=category)
+        return queryset
 
 
 class ProductDetail(generics.RetrieveUpdateDestroyAPIView):

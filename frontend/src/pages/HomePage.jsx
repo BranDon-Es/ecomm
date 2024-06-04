@@ -1,25 +1,32 @@
-import React from 'react';
+// HomePage.jsx
+import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
-  const featuredProducts = [
-    { id: 1, name: 'Phone', description: 'Smartphone', price: 500 },
-    { id: 2, name: 'Tablet', description: 'Tablet device', price: 700 },
-    // Add more products as needed
-  ];
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [newProducts, setNewProducts] = useState([]);
+  const [topDeals, setTopDeals] = useState([]);
 
-  const newProducts = [
-    { id: 3, name: 'New Phone', description: 'Latest smartphone', price: 800 },
-    { id: 4, name: 'New Tablet', description: 'Newest tablet', price: 900 },
-    // Add more products as needed
-  ];
+  useEffect(() => {
+    // Fetch featured products from the backend API
+    fetch('/api/featured-products/')
+      .then(response => response.json())
+      .then(data => setFeaturedProducts(data))
+      .catch(error => console.error('Error fetching featured products:', error));
 
-  const topDeals = [
-    { id: 5, name: 'Deal Phone', description: 'Discounted smartphone', price: 300 },
-    { id: 6, name: 'Deal Tablet', description: 'Discounted tablet', price: 500 },
-    // Add more products as needed
-  ];
+    // Fetch new products from the backend API
+    fetch('/api/new-products/')
+      .then(response => response.json())
+      .then(data => setNewProducts(data))
+      .catch(error => console.error('Error fetching new products:', error));
+
+    // Fetch top deals from the backend API
+    fetch('/api/top-deals/')
+      .then(response => response.json())
+      .then(data => setTopDeals(data))
+      .catch(error => console.error('Error fetching top deals:', error));
+  }, []);
 
   return (
     <div className="home-page-container">
@@ -44,7 +51,7 @@ const HomePage = () => {
       <section className="section-container" style={{ backgroundColor: '#e0f7fa' }}>
         <h2>New Arrivals</h2>
         <div className="product-grid">
-          {newProducts.map(product => (
+          {newProducts.slice(0, 4).map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
@@ -53,7 +60,7 @@ const HomePage = () => {
       <section className="section-container" style={{ backgroundColor: '#e1bee7' }}>
         <h2>Top Deals</h2>
         <div className="product-grid">
-          {topDeals.map(product => (
+          {topDeals.slice(0, 4).map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

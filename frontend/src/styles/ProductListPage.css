@@ -1,11 +1,20 @@
-.product-list-page-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+/* src/styles/ProductListPage.css */
+
+.products-page-container {
+  margin: 20px;
+}
+
+.category-filter {
+  margin-bottom: 16px;
 }
 
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.product-grid > div {
+  flex: 1 1 calc(33.333% - 32px); /* Adjust to ensure 3 products per row */
+  box-sizing: border-box;
 }

@@ -1,0 +1,34 @@
+/* CategoryBar.css */
+
+.category-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e1bee7; /* Pastel background color */
+  padding: 16px; /* Adjust padding as needed */
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 8px; /* Adjust margin as needed */
+  cursor: pointer;
+}
+
+.category.active {
+  border-bottom: 2px solid teal; /* Highlight active category */
+}
+
+.category-image {
+  width: 64px; /* Adjust image size as needed */
+  height: 64px;
+  border-radius: 50%; /* Circular image */
+  margin-bottom: 8px; /* Spacing between image and category name */
+}
+
+.category-name {
+  font-size: 14px; /* Adjust font size as needed */
+  text-align: center;
+}

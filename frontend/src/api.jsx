@@ -3,9 +3,15 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8000/api'; // Replace with your backend URL
 
-export const fetchProducts = async (category = '') => {
+export const fetchProducts = async (category = '', searchQuery = '') => {
   try {
-    const url = category ? `${BASE_URL}/products/?category=${category}` : `${BASE_URL}/products/`;
+    let url = `${BASE_URL}/products/`;
+    if (category) {
+      url += `?category=${category}`;
+    }
+    if (searchQuery) {
+      url += `${category ? '&' : '?'}q=${searchQuery}`;
+    }
     const response = await axios.get(url);
     return response.data;
   } catch (error) {

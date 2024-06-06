@@ -1,11 +1,15 @@
+// src/components/Header.jsx
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaUser, FaShoppingCart, FaSearch, FaBars, FaTimes } from 'react-icons/fa'; // Importing icons
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaShoppingCart, FaSearch, FaBars, FaTimes } from 'react-icons/fa';
 import '../styles/Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,7 +21,10 @@ const Header = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // Handle the search logic here
+    if (searchQuery.trim()) {
+      navigate(`/products?q=${searchQuery}`);
+      setIsSearchOpen(false);
+    }
   };
 
   return (
@@ -44,7 +51,12 @@ const Header = () => {
       {isSearchOpen && (
         <form className="search-form" onSubmit={handleSearchSubmit}>
           <FaSearch className="header-icon search-submit-icon" onClick={handleSearchSubmit} />
-          <input type="text" placeholder="Search..." />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
           <FaTimes className="header-icon close-search" onClick={toggleSearch} />
         </form>
       )}

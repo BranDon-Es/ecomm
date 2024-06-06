@@ -1,18 +1,27 @@
+// src/pages/ProductListPage.jsx
 import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import CategoryBar from '../components/CategoryBar';
 import { fetchProducts, fetchCategories } from '../api';
 import '../styles/ProductListPage.css';
+import { useLocation } from 'react-router-dom';
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 const ProductListPage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const query = useQuery();
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const data = await fetchProducts(selectedCategory);
+        const category = selectedCategory;
+        const searchQuery = query.get('q') || '';
+        const data = await fetchProducts(category, searchQuery);
         setProducts(data);
       } catch (error) {
         console.error('Error loading products:', error);
@@ -20,7 +29,7 @@ const ProductListPage = () => {
     };
 
     loadProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, query]);
 
   useEffect(() => {
     const loadCategories = async () => {

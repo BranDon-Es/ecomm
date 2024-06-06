@@ -1,24 +1,26 @@
 // src/components/CategoryBar.jsx
+
 import React from 'react';
 import '../styles/CategoryBar.css';
 
 const CategoryBar = ({ categories, selectedCategory, setSelectedCategory }) => {
   return (
     <div className="category-bar">
-      <button
-        className={selectedCategory === '' ? 'active' : ''}
-        onClick={() => setSelectedCategory('')}
-      >
-        All Categories
-      </button>
       {categories.map(category => (
-        <button
+        <div
           key={category.id}
-          className={selectedCategory === category.id ? 'active' : ''}
+          className={`category ${selectedCategory === category.id ? 'active' : ''}`}
           onClick={() => setSelectedCategory(category.id)}
         >
-          {category.name}
-        </button>
+          {category.image && (
+            <img
+              src={category.image} // Assuming the image URL is stored directly in the category object
+              alt={category.name}
+              className="category-image"
+            />
+          )}
+          <span className="category-name">{category.name}</span>
+        </div>
       ))}
     </div>
   );

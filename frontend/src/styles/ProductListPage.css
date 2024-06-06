@@ -1,14 +1,11 @@
 /* src/styles/ProductListPage.css */
 
-.products-page-container {
-  margin: 20px;
-}
-
-.category-filter {
-  margin-bottom: 16px;
+.products-page-container h1 {
+  margin: 8px 40px;
 }
 
 .product-grid {
+  margin: 40px 80px;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;

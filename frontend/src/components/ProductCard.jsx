@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
       </div>
       <button className="add-to-cart-btn" onClick={handleAddToCart}>
         <FaCartPlus className="cart-icon" />
-        Add to Cart
+
       </button>
     </div>
   );

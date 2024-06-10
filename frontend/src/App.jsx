@@ -8,6 +8,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import AboutPage from './pages/AboutPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import AccountPage from './pages/AccountPage';
 import './App.css';
 import './index.css';
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/products/:productId" element={<ProductDetailPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/account" element={<AccountPage />} />
           </Routes>
         </main>
         <Footer />

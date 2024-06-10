@@ -1,7 +1,10 @@
 from rest_framework import generics, permissions, status
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from .models import CustomUser
 from .serializers import CustomUserSerializer, LoginSerializer
 
@@ -37,3 +40,23 @@ class LoginView(generics.GenericAPIView):
             })
         except ValidationError as e:
             return Response({'detail': e.detail}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            request.user.auth_token.delete()
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class AccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data)

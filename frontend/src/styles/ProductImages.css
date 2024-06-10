@@ -1,0 +1,10 @@
+/* src/styles/ProductImages.css */
+.product-images {
+  width: 100%;
+}
+
+.carousel .slide img {
+  width: auto;
+  height: 400px; /* Adjust height as needed */
+  object-fit: cover; /* Center crop */
+}

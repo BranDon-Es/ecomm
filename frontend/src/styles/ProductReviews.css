@@ -1,0 +1,25 @@
+/* src/styles/ProductReviews.css */
+.product-reviews {
+  margin-top: 30px;
+}
+
+.product-reviews h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.review {
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.review h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.review p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}

@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AboutPage from './pages/AboutPage';
+import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
 import './App.css';
 import './index.css';
 
@@ -18,8 +20,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductListPage />} />
-            <Route path="/about" element={<AboutPage />} /> {/* Route for the About page */}
-            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/products/:productId" element={<ProductDetailPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </main>
         <Footer />

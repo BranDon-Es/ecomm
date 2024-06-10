@@ -1,4 +1,3 @@
-// src/pages/ProductListPage.jsx
 import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import CategoryBar from '../components/CategoryBar';

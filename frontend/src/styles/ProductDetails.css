@@ -1,0 +1,34 @@
+/* src/styles/ProductDetails.css */
+.product-details {
+  padding: 20px;
+  text-align: left;
+}
+
+.product-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.product-price {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.add-to-cart-btn {
+  background-color: teal;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: darkcyan;
+}

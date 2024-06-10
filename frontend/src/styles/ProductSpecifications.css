@@ -1,0 +1,22 @@
+/* src/styles/ProductSpecifications.css */
+.product-specifications {
+  margin-top: 20px;
+}
+
+.product-specifications h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.product-specifications ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.product-specifications li {
+  margin-bottom: 5px;
+}
+
+.product-specifications strong {
+  margin-right: 5px;
+}

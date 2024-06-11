@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
+from django.utils import timezone
 from .models import CustomUser
-
 
 class CustomUserBackend(ModelBackend):
     def authenticate(self, request, username=None, email=None, password=None, **kwargs):
@@ -18,5 +18,8 @@ class CustomUserBackend(ModelBackend):
             return None
 
         if user.check_password(password):
+            # Update last login timestamp
+            user.last_login = timezone.now()
+            user.save(update_fields=['last_login'])
             return user
         return None

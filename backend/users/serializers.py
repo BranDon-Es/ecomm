@@ -40,3 +40,17 @@ class LoginSerializer(serializers.Serializer):
 
         data['user'] = user
         return data
+
+
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'password', 'phone_number', 'address']
+        extra_kwargs = {
+            'password': {'write_only': True, 'min_length': 8}
+        }
+
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
+        return super().update(instance, validated_data)

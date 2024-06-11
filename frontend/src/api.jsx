@@ -36,6 +36,7 @@ export const fetchProductDetail = async (productId) => {
   }
 };
 
+
 const getAuthHeader = () => {
   const token = localStorage.getItem('access_token');
   return token ? { Authorization: `Bearer ${token}` } : {};
@@ -92,6 +93,22 @@ export const logout = async () => {
   } catch (error) {
     console.error('Error during logout:', error.response ? error.response.data : error.message);
     throw error;
+  }
+};
+
+
+export const updateProfile = async (userData) => {
+  const token = localStorage.getItem('access_token');
+  try {
+    const response = await axios.put(`${BASE_URL}/users/account/`, userData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating profile:', error.response ? error.response.data : error.message);
+    throw error.response ? error.response.data : error.message;
   }
 };
 

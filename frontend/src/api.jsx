@@ -36,6 +36,24 @@ export const fetchProductDetail = async (productId) => {
   }
 };
 
+const getAuthHeader = () => {
+  const token = localStorage.getItem('access_token');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+
+export const getAccountDetails = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users/account/`, {
+      headers: getAuthHeader(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching account details:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
 
 export const signup = async (userData) => {
   try {
@@ -54,8 +72,8 @@ export const login = async (credentials) => {
     const { access, refresh } = response.data;
 
     // Save tokens to localStorage
-    localStorage.setItem('access', access);
-    localStorage.setItem('refresh', refresh);
+    localStorage.setItem('access_token', access);
+    localStorage.setItem('refresh_token', refresh);
 
     return response.data;
   } catch (error) {
@@ -64,24 +82,17 @@ export const login = async (credentials) => {
   }
 };
 
-export const logout = () => {
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    window.location.href = '/login';
-};
-
-
-export const getAccountDetails = async () => {
-  const token = localStorage.getItem('access'); // Ensure this is the correct token
+export const logout = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/users/account/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
+    const refresh_token = localStorage.getItem('refresh_token');
+    await axios.post(`${BASE_URL}/users/logout/`, { refresh_token });
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    window.location.href = '/login'; // Redirect to the login page
   } catch (error) {
-    console.error('Error fetching account details:', error.response ? error.response.data : error.message);
+    console.error('Error during logout:', error.response ? error.response.data : error.message);
     throw error;
   }
 };
+
+

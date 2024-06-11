@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaShoppingCart, FaSearch, FaBars, FaTimes } from 'react-icons/fa';
@@ -27,6 +26,15 @@ const Header = () => {
     }
   };
 
+  const handleAccountClick = () => {
+    const accessToken = localStorage.getItem('access_token');
+    if (accessToken) {
+      navigate('/account');
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <header className="header-container">
       <div className="logo">
@@ -40,9 +48,7 @@ const Header = () => {
       </nav>
       <div className="icon-container">
         <FaSearch className="header-icon" onClick={toggleSearch} />
-        <Link to="/account">
-          <FaUser className="header-icon" />
-        </Link>
+        <FaUser className="header-icon" onClick={handleAccountClick} />
         <Link to="/cart">
           <FaShoppingCart className="header-icon" />
         </Link>

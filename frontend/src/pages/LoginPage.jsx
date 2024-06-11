@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link
 import { login } from '../api';
 import styles from '../styles/Auth.module.css';
 
@@ -65,6 +65,7 @@ const LoginPage = () => {
         />
         <button type="submit" className={styles.authButton}>Login</button>
       </form>
+      <p>Don't have an account? <Link to="/signup">Sign Up</Link></p> {/* Add prompt to sign up */}
     </div>
   );
 };

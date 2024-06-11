@@ -43,14 +43,17 @@ class LoginView(generics.GenericAPIView):
 
 
 class LogoutView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         try:
-            request.user.auth_token.delete()
-            return Response(status=status.HTTP_200_OK)
+            refresh_token = request.data.get('refresh_token')
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+                return Response(status=status.HTTP_205_RESET_CONTENT)
+            else:
+                return Response({'error': 'No refresh token provided'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class AccountView(APIView):

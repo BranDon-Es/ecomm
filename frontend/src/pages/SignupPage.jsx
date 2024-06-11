@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate, Link } from 'react-router-dom';
 import { signup } from '../api';
 import styles from '../styles/Auth.module.css';
 
@@ -10,7 +10,7 @@ const SignupPage = () => {
     password: '',
   });
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,9 +26,9 @@ const SignupPage = () => {
     } catch (error) {
       console.error('Error during signup:', error);
       setError(
-        error.email?.join(' ') ||
-        error.username?.join(' ') ||
-        error.password?.join(' ') ||
+        error.response?.data?.email?.join(' ') ||
+        error.response?.data?.username?.join(' ') ||
+        error.response?.data?.password?.join(' ') ||
         'An error occurred during signup.'
       );
     }
@@ -68,6 +68,7 @@ const SignupPage = () => {
         />
         <button type="submit" className={styles.authButton}>Sign Up</button>
       </form>
+      <p>Already have an account? <Link to="/login">Login</Link></p> {/* Add prompt to log in */}
     </div>
   );
 };

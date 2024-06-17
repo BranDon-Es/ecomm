@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from .models import CustomUser
 from .serializers import CustomUserSerializer, LoginSerializer
@@ -34,9 +35,10 @@ class LoginView(generics.GenericAPIView):
             serializer.is_valid(raise_exception=True)
             user = serializer.validated_data['user']
             refresh = RefreshToken.for_user(user)
+            access = refresh.access_token
             return Response({
                 'refresh': str(refresh),
-                'access': str(refresh.access_token),
+                'access': str(access),
             })
         except ValidationError as e:
             return Response({'detail': e.detail}, status=status.HTTP_400_BAD_REQUEST)
@@ -54,6 +56,10 @@ class LogoutView(APIView):
                 return Response({'error': 'No refresh token provided'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CustomTokenRefreshView(TokenRefreshView):
+    pass
 
 
 class AccountView(APIView):

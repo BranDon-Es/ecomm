@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8000/api';
 
-
 export const fetchProducts = async (category = '') => {
   try {
     const url = category ? `${BASE_URL}/products/?category=${category}` : `${BASE_URL}/products/`;
@@ -14,7 +13,6 @@ export const fetchProducts = async (category = '') => {
   }
 };
 
-
 export const fetchCategories = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/categories/`);
@@ -24,7 +22,6 @@ export const fetchCategories = async () => {
     throw error;
   }
 };
-
 
 export const fetchProductDetail = async (productId) => {
   try {
@@ -36,25 +33,22 @@ export const fetchProductDetail = async (productId) => {
   }
 };
 
-
 const getAuthHeader = () => {
   const token = localStorage.getItem('access_token');
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
-
 
 export const getAccountDetails = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/users/account/`, {
       headers: getAuthHeader(),
     });
-    return response.data;
+    return response.data; // Assuming response.data contains user details
   } catch (error) {
     console.error('Error fetching account details:', error.response ? error.response.data : error.message);
     throw error;
   }
 };
-
 
 export const signup = async (userData) => {
   try {
@@ -65,7 +59,6 @@ export const signup = async (userData) => {
     throw error.response.data;
   }
 };
-
 
 export const login = async (credentials) => {
   try {
@@ -96,7 +89,6 @@ export const logout = async () => {
   }
 };
 
-
 export const updateProfile = async (userData) => {
   const token = localStorage.getItem('access_token');
   try {
@@ -112,4 +104,58 @@ export const updateProfile = async (userData) => {
   }
 };
 
+export const refreshAccessToken = async () => {
+  const refreshToken = localStorage.getItem('refresh_token');
+  if (!refreshToken) {
+    throw new Error('No refresh token available');
+  }
 
+  try {
+    const response = await axios.post(`${BASE_URL}/users/token/refresh/`, { refresh: refreshToken });
+    localStorage.setItem('access_token', response.data.access);
+    return response.data.access;
+  } catch (error) {
+    console.error('Error refreshing access token:', error);
+    throw error;
+  }
+};
+
+// Add a request interceptor
+axios.interceptors.request.use(
+  async (config) => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        const newAccessToken = await refreshAccessToken();
+        axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        return axios(originalRequest);
+      } catch (e) {
+        // If refresh token is invalid, logout the user
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        window.location.href = '/login';
+        return Promise.reject(e);
+      }
+    }
+    return Promise.reject(error);
+  }
+);

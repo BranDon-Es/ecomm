@@ -67,3 +67,9 @@
 .cart-icon {
   margin-right: 4px;
 }
+
+.added-to-cart-message {
+  color: green;
+  font-size: 0.9em;
+  margin-top: 5px;
+}

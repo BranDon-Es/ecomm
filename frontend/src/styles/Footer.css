@@ -1,6 +1,6 @@
 .footer-container {
   width: 100%;
-  background-color: darkgray;
+  background: linear-gradient(to right, white, lightblue);
   color: #fff;
   padding: 1rem 4rem;
 }
@@ -9,17 +9,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 0 auto;
   padding: 1rem;
 }
 
 .footer-content p {
   margin: 0;
+
 }
 
 .social-media a {
-  color: #fff;
+  color: black;
   margin: 0 0.5rem;
   font-size: 1.5rem;
   transition: color 0.3s ease;
@@ -27,4 +27,8 @@
 
 .social-media a:hover {
   color: teal;
+}
+
+.rights-reserved {
+    color: black;
 }

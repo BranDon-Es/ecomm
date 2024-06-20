@@ -159,3 +159,16 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
+export const createOrder = async (orderData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/orders/`, orderData, {
+      headers: getAuthHeader(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating order:', error);
+    throw error;
+  }
+};

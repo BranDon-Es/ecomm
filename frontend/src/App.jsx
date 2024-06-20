@@ -11,6 +11,7 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 import './App.css';
 import './index.css';
 
@@ -30,6 +31,7 @@ const App = () => {
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/account" element={<AccountPage />} />
                             <Route path="/cart" element={<CartPage />} />
+                            <Route path="/checkout" element={<CheckoutPage />} />
                         </Routes>
                     </main>
                     <Footer />
